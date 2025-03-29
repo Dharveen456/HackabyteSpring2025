@@ -2,9 +2,12 @@
 
 {% block content %}
 <main>
-    <section>
-        <h2>Video thingy</h2>
-        <p>Yessirrrrrrrrrrrrrrrrrrrrrrrr</p>
+    <section class="video-section">
+        <h2>Live Video Stream</h2>
+        <div class="video-container">
+            <img src="{{ url_for('video_feed') }}" alt="Live video stream" class="video-feed">
+        </div>
+        <p class="video-caption">This is a live feed from the camera. Refresh the page if the stream does not load.</p>
     </section>
 </main>
 
