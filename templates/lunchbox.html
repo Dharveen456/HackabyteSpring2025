@@ -1,50 +1,96 @@
 {% extends "layout.html" %}
-
 {% block content %}
+<head>
+
+    <script>
+        function addLunchboxField() {
+            const container = document.getElementById("lunchbox-container");
+            const count = container.children.length + 1;
+            const newField = document.createElement("div");
+            newField.innerHTML = `
+                <label for="student-name-${count}">Student ${count} Name:</label>
+                <input type="text" id="student-name-${count}" name="student-name-${count}" required>
+                <label>
+                    <input type="checkbox" class="replacement-box" onchange="toggleReplacement(this, ${count})"> Getting a replacement?
+                </label>
+                <div id="replacement-info-${count}" class="replacement-info" style="display: none;">
+                    <label for="missing-lunchbox-${count}">Explain missing lunchbox:</label>
+                    <input type="text" id="missing-lunchbox-${count}" name="missing-lunchbox-${count}">
+                </div>
+            `;
+            container.appendChild(newField);
+        }
+
+        function toggleReplacement(checkbox, count) {
+            const replacementInfo = document.getElementById(`replacement-info-${count}`);
+            replacementInfo.style.display = checkbox.checked ? "block" : "none";
+        }
+
+        function submitRegistration(event) {
+            event.preventDefault();
+            if (!document.getElementById("agree-terms").checked) {
+                alert("You must agree to the fee policy before registering.");
+                return;
+            }
+            alert("Lunchboxes successfully registered!");
+        }
+
+        function submitPayment(event) {
+            event.preventDefault();
+            alert("Bill charged to student account.");
+        }
+    </script>
+</head>
     <main>
         <section>
-            <h2>Borrow a Lunchbox</h2>
-            <p>Families can borrow lunchboxes for the school year. Please return all borrowed lunchboxes by the end of the year.</p>
+            <h2>Select Your School</h2>
+            <label for="school">School:</label>
+            <select id="school">
+                <option value="school1">School 1</option>
+                <option value="school2">School 2</option>
+                <option value="school3">School 3</option>
+            </select>
+        </section>
+
+        <section>
+            <h2>Register for Lunchboxes</h2>
+            <p>Each student must be registered separately. You must agree to return the lunchboxes or pay a fee.</p>
             
-            <form id="borrow-form">
-                <label for="family-name">Family Name:</label>
-                <input type="text" id="family-name" name="family-name" required>
+            <form id="register-form" onsubmit="submitRegistration(event)">
+                <div id="lunchbox-container">
+                    <div>
+                        <label for="student-name-1">Student 1 Name:</label>
+                        <input type="text" id="student-name-1" name="student-name-1" required>
+                        <label>
+                            <input type="checkbox" class="replacement-box" onchange="toggleReplacement(this, 1)"> Getting a replacement?
+                        </label>
+                        <div id="replacement-info-1" class="replacement-info" style="display: none;">
+                            <label for="missing-lunchbox-1">Explain missing lunchbox:</label>
+                            <input type="text" id="missing-lunchbox-1" name="missing-lunchbox-1">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addLunchboxField()">+ Add Another Student</button>
                 
-                <label for="num-lunchboxes">Number of Lunchboxes:</label>
-                <input type="number" id="num-lunchboxes" name="num-lunchboxes" min="1" required>
-                
-                <button type="submit">Borrow</button>
+                <label>
+                    <input type="checkbox" id="agree-terms" required> I agree to pay the fee if lunchboxes are not returned.
+                </label>
+                <button type="submit">Register</button>
             </form>
         </section>
 
         <section>
             <h2>Return Policy</h2>
-            <p>All lunchboxes must be returned by the end of the school year. If a lunchbox is missing, a replacement fee will apply.</p>
+            <p>All lunchboxes must be returned by the end of the school year. If a lunchbox is missing, a replacement fee will be charged.</p>
         </section>
 
         <section>
             <h2>Pay for Missing Lunchboxes</h2>
-            <p>If you've lost a lunchbox, please use the payment form below:</p>
+            <p>If a lunchbox is missing, enter the student's ID below to charge the fee to their account.</p>
 
-            <form id="payment-form" method="post" action="/process-payment" style="margin-top: 20px; margin-bottom: 20px;">
-                <label for="full-name">Full Name:</label>
-                <input type="text" id="full-name" name="full-name" placeholder="Enter Full Name" required>
-                
-                <label for="num-missing">Number of Missing Lunchboxes:</label>
-                <input type="number" id="num-missing" name="num-missing" min="1" required>
-                
-                <label for="card-details">Card Details:</label>
-                <input type="text" id="card-details" name="card-details" placeholder="Enter Card Info" pattern="\d{16}" title="Enter a valid 16-digit card number" required>
-                
-                <label for="expiry-date">Expiry Date:</label>
-                <input type="month" id="expiry-date" name="expiry-date" required>
-                
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" placeholder="123" pattern="\d{3}" title="Enter a valid 3-digit CVV" required>
-                
-                <label for="zip-code">ZIP Code:</label>
-                <input type="text" id="zip-code" name="zip-code" placeholder="Enter ZIP Code" pattern="\d{5}" title="Enter a valid 5-digit ZIP code" required>
-                
+            <form id="payment-form" onsubmit="submitPayment(event)">
+                <label for="student-id">Student ID:</label>
+                <input type="text" id="student-id" name="student-id" required>
                 <button type="submit">Pay Now</button>
             </form>
         </section>
