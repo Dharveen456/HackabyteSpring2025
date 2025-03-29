@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Wise</title>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/en/face/puk" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Waste Wise</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pages/about.html">About</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+                <li><a href="pages/lunchbox.html">Lunchboxes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Borrow a Lunchbox</h2>
+            <p>Families can borrow lunchboxes for the school year. Please return all borrowed lunchboxes by the end of the year.</p>
+            
+            <form id="borrow-form">
+                <label for="family-name">Family Name:</label>
+                <input type="text" id="family-name" name="family-name" required>
+                
+                <label for="num-lunchboxes">Number of Lunchboxes:</label>
+                <input type="number" id="num-lunchboxes" name="num-lunchboxes" min="1" required>
+                
+                <button type="submit">Borrow</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Return Policy</h2>
+            <p>All lunchboxes must be returned by the end of the school year. If a lunchbox is missing, a replacement fee will apply.</p>
+        </section>
+
+        <section>
+            <h2>Pay for Missing Lunchboxes</h2>
+            <p>If you've lost a lunchbox, please use the payment form below:</p>
+
+            <form id="payment-form">
+                <label for="num-missing">Number of Missing Lunchboxes:</label>
+                <input type="number" id="num-missing" name="num-missing" min="1" required>
+                
+                <label for="card-details">Card Details:</label>
+                <input type="text" id="card-details" name="card-details" placeholder="Enter Card Info" required>
+                
+                <button type="submit">Pay Now</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Waste Wise</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
