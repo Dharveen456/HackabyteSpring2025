@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if message %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% else %}
+        <div class="container">
+            <h2>Contact Information</h2>
+            <div class="contact-info">
+                <p><strong>School Name:</strong> Green Valley High School</p>
+                <p><strong>Address:</strong> 123 Eco Lane, Sustainability City, SC 12345</p>
+                <p><strong>Phone:</strong> (123) 456-7890</p>
+                <p><strong>Email:</strong> wastewise@greenvalleyhs.edu</p>
+            </div>
+            <h2>Send Us a Message</h2>
+            <form action="/submit-contact" method="POST">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -5,32 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waste Wise - Home</title>
   <link rel="stylesheet" media="screen" href="https://fontlibrary.org/en/face/puk" type="text/css"/>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
         <h1>Waste Wise</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="lunchbox.html">Lunchboxes</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact" aria-disabled="true">Contact</a></li>
+                <li><a href="/lunchboxes">Lunchboxes</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section>
-            <h2>Video thingy</h2>
-            <p>Yessirrrrrrrrrrrrrrrrrrrrrrrr</p>
-        </section>
-    </main>
-
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
     <footer>
         <p>&copy; 2025 My Website</p>
     </footer>
 
-    <script src="js/script.js"></script>
 </body>
 </html>
