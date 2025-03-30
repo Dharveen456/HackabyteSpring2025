@@ -1,30 +1,24 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, jsonify
 import cv2
-
+import base64
+import numpy as np
 
 app = Flask(__name__)
 
-camera = cv2.VideoCapture(0)
-if not camera.isOpened():
-    raise Exception("Could not open video device")
+@app.route("/upload", methods=["POST"])
+def upload():
+    data = request.json['image']
+    
+    # Decode base64 image
+    encoded_data = data.split(',')[1]
+    nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-def generate_frames():
-    while True:
-        success, frame = camera.read()  # Capture frame-by-frame
-        if not success:
-            break
-        else:
-            # Convert frame to JPEG format
-            _, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            # Display frame in byte format
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    # Save or process the image
+    cv2.imwrite("user_webcam.jpg", img)
+
+    return jsonify({"message": "Image received and saved."})
             
-@app.route('/video_feed')
-def video_feed():
-    #sets to a continuously updating dynamic stream with a frame boundary string
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route("/")
 def index():
