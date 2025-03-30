@@ -20,6 +20,9 @@ header {
        font-family: puk;
        font-size:50px;
     }
+#title{
+       display:inline;
+    }
     nav {
       background-color: #50616c;
       padding: 1px;
@@ -51,6 +54,9 @@ nav ul li:hover {
       color: white;
     }
 
+#logo{
+      display:inline;
+    }
 footer {
     text-align: center;
     padding: 1rem;
