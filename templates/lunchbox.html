@@ -32,11 +32,13 @@
                 return;
             }
             alert("Lunchboxes successfully registered!");
+            location.reload();
         }
 
         function submitPayment(event) {
             event.preventDefault();
             alert("Bill charged to student account.");
+            location.reload();
         }
     </script>
 </head>
@@ -58,8 +60,8 @@
             <form id="register-form" onsubmit="submitRegistration(event)">
                 <div id="lunchbox-container">
                     <div>
-                        <label for="student-name-1">Student 1 Name:</label>
-                        <input type="text" id="student-name-1" name="student-name-1" required>
+                        <label for="student-name-1">Student 1 ID:</label>
+                        <input type="number" id="student-name-1" name="student-name-1" required>
                         <label>
                             <input type="checkbox" class="replacement-box" onchange="toggleReplacement(this, 1)"> Getting a replacement?
                         </label>
@@ -89,7 +91,7 @@
 
             <form id="payment-form" onsubmit="submitPayment(event)">
                 <label for="student-id">Student ID:</label>
-                <input type="text" id="student-id" name="student-id" required>
+                <input type="number" id="student-id" name="student-id" required>
                 <button type="submit">Pay Now</button>
             </form>
         </section>
